@@ -22,7 +22,9 @@ Status reflects the local ARM64/uConsole tests, not general Linux support.
 | Milk outside a bag... | Native ARM64 Ren'Py | Added ARM64 Ren'Py runtime/runner selection | Opens |
 | Mother Russia Bleeds | Box64/Unity | `-force-opengl`, GL 3.3, PulseAudio, 960x540 | Opens |
 | Phoenotopia Awakening | Box64/Unity | OpenGL and conservative/interpreter Box64 tests; Galaxy plugins isolated | Broken: SIGSEGV in Mono before graphics |
+| Risk of Rain (2013) | PortMaster/gmloadernext ARMHF | Port verified; local 2013 build lacks the required current Steam `data.win` | Prepared, awaiting compatible data |
 | Stardew Valley | Native Linux ARM-compatible build | Installed GOG shell installer directly | Works |
+| TMNT: Shredder's Revenge | Native ARM64 Mono/FNA (PortMaster) | Historical 2024 patches for game 1.0.311, AOT and ASTC conversion | Works; controller mapping pending |
 | This War of Mine | Box86 | PulseAudio launcher | Opens |
 | Undertale | Box86/GameMaker | Local OpenSSL 1.0 compatibility libs, PulseAudio | Opens; OpenAL warning may affect audio |
 | VA-11 Hall-A | Box86/GameMaker | Local OpenSSL 1.0 compatibility libs, PulseAudio | Opens; OpenAL warning may affect audio |
@@ -30,7 +32,6 @@ Status reflects the local ARM64/uConsole tests, not general Linux support.
 ## Removed or unsupported experiments
 
 - 20 Minutes Till Dawn: incompatible build was removed with installation files.
-- TMNT: Shredder's Revenge: no suitable local Linux build was identified in the tested files.
 - Phoenotopia Awakening remains installed for diagnostics but is not playable under the tested Box64 version.
 
 ## Common patterns
