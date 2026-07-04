@@ -1,0 +1,36 @@
+# Never commit commercial game content.
+*.AppImage
+*.bin
+*.deb
+*.dll
+*.exe
+*.so
+*.so.*
+*.assets
+*.resS
+*.bundle
+*.bank
+*.sav
+*.png
+*.jpg
+*.flac
+*.ogg
+*.mp3
+*.zip
+*.tar
+*.gz
+
+# Generated logs and environments.
+*.log
+*.bak
+*.backup
+*.before-*
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+
+# Local game trees.
+Games/
+game/
+StreamingAssets/
