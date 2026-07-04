@@ -41,7 +41,7 @@ keys, cracks, or DRM bypasses.
 | Milk outside a bag of milk outside a bag of milk | Native ARM64 Ren'Py | Opens |
 | Mother Russia Bleeds | Box64/Unity | Opens |
 | Phoenotopia Awakening | Box64/FEX/Unity | Not working: bundled Mono aborts before graphics |
-| Risk of Rain (2013) | PortMaster ARMHF | Prepared; requires the current Steam `data.win` |
+| Risk of Rain (2013) | Native ARMHF PortMaster/gmloadernext | Works |
 | Stardew Valley | Native Linux ARM build | Works |
 | TMNT: Shredder's Revenge | Native ARM64 Mono/FNA PortMaster adaptation | Works; controller mapping pending |
 | This War of Mine | Box86 | Opens |
