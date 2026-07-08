@@ -5,6 +5,7 @@ Status reflects the local ARM64/uConsole tests, not general Linux support.
 | Game | Runtime | Applied changes | Result |
 |---|---|---|---|
 | Balatro | x86_64 AppImage | X11 SDL launcher | Opens |
+| Bastion | Box64/FNA-MonoGame | X11/PulseAudio, local library path, GL 3.3 override | Works; reached main menu |
 | Blasphemous | Box64/Unity | GL 3.2 override, PulseAudio, X11, `-force-gfx-direct`, compat libs | Input/audio improved; stability still sensitive |
 | Cave Story NXEngine Evo | Native ARM64 | NXEngine Evo launcher, X11/PulseAudio, 960-wide default settings | Works |
 | Children of Morta | Box64/Unity | See dedicated guide | Advanced past shader crash after IL patch; final gameplay verification ongoing |

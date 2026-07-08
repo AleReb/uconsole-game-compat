@@ -24,6 +24,7 @@ keys, cracks, or DRM bypasses.
 | Game | Runtime | Result |
 |---|---|---|
 | Balatro | Box64/AppImage | Opens |
+| Bastion | Box64/FNA-MonoGame | Works |
 | Blasphemous | Box64/Unity | Input and audio fixed; stability remains sensitive |
 | Cave Story NXEngine Evo | Native ARM64 | Works |
 | Children of Morta | Box64/Unity | Advanced past the shader crash; gameplay testing continues |
@@ -63,6 +64,10 @@ keys, cracks, or DRM bypasses.
 See [the compatibility matrix](docs/compatibility.md) for the applied runtime
 flags and [the launcher recipes](docs/games/launcher-recipes.md) for reusable
 patterns.
+
+Copyable launchers are available in [scripts/launchers](scripts/launchers).
+Each file is meant to be dropped into the matching game installation directory,
+renamed to `run.sh` if desired, and made executable.
 
 Game-specific notes:
 

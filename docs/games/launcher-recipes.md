@@ -3,11 +3,26 @@
 These are environment/argument recipes. Replace executable names and paths with
 the files from your legitimate installation.
 
+Ready-to-copy scripts for these recipes live in `scripts/launchers/`. Each
+script documents where it should be placed inside the game installation.
+
 ## Balatro
 
 ```sh
 SDL_VIDEODRIVER=x11 ./Balatro.AppImage
 ```
+
+## Bastion
+
+```sh
+LC_ALL=C SDL_VIDEODRIVER=x11 SDL_AUDIODRIVER=pulse \
+MESA_GL_VERSION_OVERRIDE=3.3 MESA_GLSL_VERSION_OVERRIDE=330 \
+LD_LIBRARY_PATH="$PWD${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" \
+box64 ./Bastion.bin.x86_64
+```
+
+The tested GOG build is `1.50436 (29.08.2018)`. It reached the main menu with
+the x86_64 FNA/MonoGame binary.
 
 ## Cult of the Lamb
 
