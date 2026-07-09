@@ -28,6 +28,7 @@ Status reflects the local ARM64/uConsole tests, not general Linux support.
 | Mother Russia Bleeds | Box64/Unity | `-force-opengl`, GL 3.3, PulseAudio, 960x540 | Opens |
 | Momodora: Reverie Under the Moonlight | Box86/GameMaker | Bundled Steam i386 runtime, X11/PulseAudio | Works |
 | Phoenotopia Awakening | Box64/Unity | OpenGL and conservative/interpreter Box64 tests; Galaxy plugins isolated | Broken: SIGSEGV in Mono before graphics |
+| Portal 2 | Box86/Source Engine | Bundled `libstdc++.so.6` renamed, GL 3.3 override, X11/PulseAudio, `-game portal2`, 800x600 test resolution | Works |
 | Pyre | Box64/MonoGame | Bundled x86_64 libraries, OpenGL 4.5 compatibility override, local ALSA-to-Pulse configuration | Works |
 | Risk of Rain (2013) | PortMaster/gmloadernext ARMHF | Verified `data.win`, xdelta conversion and audio repack | Works |
 | Resolutiion | Box64/Godot 3.1.2 | Original x86-64 runtime, V3D/OpenGL 3.3, X11/PulseAudio | Gameplay tested; works |

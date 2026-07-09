@@ -47,6 +47,7 @@ keys, cracks, or DRM bypasses.
 | Mother Russia Bleeds | Box64/Unity | Opens |
 | Momodora: Reverie Under the Moonlight | Box86/GameMaker | Works with bundled i386 runtime |
 | Phoenotopia Awakening | Box64/FEX/Unity | Not working: bundled Mono aborts before graphics |
+| Portal 2 | Box86/Source Engine | Works; use 800x600 for initial testing |
 | Pyre | Box64/MonoGame | Works with V3D; local ALSA default redirected to PulseAudio |
 | Risk of Rain (2013) | Native ARMHF PortMaster/gmloadernext | Works |
 | Resolutiion | Box64/Godot 3.1.2 | Gameplay tested; works with V3D and OpenGL 3.3 |

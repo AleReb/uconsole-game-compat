@@ -265,3 +265,76 @@ LANG=en_US.utf8 SDL_VIDEODRIVER=x11 SDL_AUDIODRIVER=pulse \
 MESA_GL_VERSION_OVERRIDE=3.3 MESA_GLSL_VERSION_OVERRIDE=330 \
 box64 ./VirtuaVerse.x86_64
 ```
+
+## Portal 2
+
+Portal 2 (Linux native version) works on ARM via Box86. The tested setup needed
+the bundled `libstdc++.so.6` moved out of the way, `-game portal2`, and a low
+test resolution. Start with 800x600 while validating the install; raise it only
+after confirming input, audio, and level loading.
+
+### 1. Library fix
+
+The game ships with a bundled `libstdc++.so.6` which can conflict with Box86.
+Rename it so the game uses the system library instead. The launcher also does
+this automatically on first run if the file is present.
+
+```sh
+cd ~/Games/Portal2/game  # or ~/Games/Portal2 if portal2_linux is in the root
+mv bin/libstdc++.so.6 bin/libstdc++.so.6.bak
+```
+
+Depending on the build, another copy may exist under
+`steam-runtime/usr/lib/i386-linux-gnu/`. The tested launcher bypasses the Steam
+runtime and launches `portal2_linux` directly.
+
+### 2. Language configuration
+
+If the copy defaults to another language, set the Goldberg/Steam emulator
+language file when present:
+
+```sh
+echo "spanish" > ~/Games/Portal2/game/bin/linux32/steam_settings/force_language.txt
+```
+
+### 3. Launch script
+
+Use `scripts/launchers/portal2.sh`. It supports both common layouts:
+`portal2_linux` in the install root, or under `game/`.
+
+```sh
+#!/bin/sh
+# Portal 2 Box86 launcher.
+
+# See scripts/launchers/portal2.sh for the copyable version.
+
+export MESA_GL_VERSION_OVERRIDE=3.3
+export MESA_GLSL_VERSION_OVERRIDE=330
+export SDL_VIDEODRIVER=x11
+export SDL_AUDIODRIVER=pulse
+
+exec box86 ./portal2_linux -game portal2 -w 800 -h 600 "$@"
+```
+
+`-game portal2` is mandatory; without it, Source may default to `hl2`. `-w 800
+-h 600` is the recommended test configuration on uConsole.
+
+### 4. Desktop shortcut
+
+To launch the game via `Super + D` (Wofi/Rofi), create `~/.local/share/applications/portal2.desktop`:
+
+```desktop
+[Desktop Entry]
+Name=Portal 2
+Comment=Play Portal 2 on uConsole (Box86)
+Exec=/home/uconsole/Games/Portal2/portal2.sh
+Icon=/home/uconsole/Games/Portal2/game/portal2.ico
+Terminal=false
+Type=Application
+Categories=Game;
+```
+Update the application cache afterwards:
+
+```sh
+update-desktop-database ~/.local/share/applications/
+```
