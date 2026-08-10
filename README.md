@@ -1,8 +1,10 @@
 # uConsole Game Compatibility
 
 Reproducible notes and tools for running Linux and Windows x86/x86_64 games on
-an ARM64 ClockworkPi uConsole/Raspberry Pi with Box86, Box64, Wine, FEX, or
-native ARM ports.
+the tested ARM64 hardware: a ClockworkPi uConsole fitted with a Raspberry Pi
+Compute Module 5 Rev 1.0 and 16 GiB of unified memory. The documented runtimes
+include Box86, Box64, Wine, FEX, native ARM ports and the experimental native
+Steam ARM64 client.
 
 This repository documents changes made to legally obtained game installations.
 It does not contain games, installers, commercial assets, proprietary DLLs,
@@ -10,14 +12,26 @@ keys, cracks, or DRM bypasses.
 
 ## Tested environment
 
-- ARM64 Debian Linux on a ClockworkPi uConsole
-- Raspberry Pi Compute Module
-- Hyprland/Wayland with XWayland
-- Mesa V3D
-- Box86 and Box64
-- Wine WOW64
-- PipeWire/PulseAudio
-- Native Mono/FNA ports where available
+- Hardware:
+  - ClockworkPi uConsole
+  - Raspberry Pi Compute Module 5 Rev 1.0
+  - four-core ARM Cortex-A76 CPU
+  - 16 GiB unified system/GPU memory
+  - Broadcom V3D 7.1.10.2 GPU with hardware acceleration
+- Operating system and desktop:
+  - ARM64 Debian Linux (`aarch64`), tested with kernel `7.1.4-v8+`
+  - Hyprland/Wayland with XWayland
+  - Mesa 26.1.2 with OpenGL/OpenGL ES 3.1 on V3D
+  - PipeWire/PulseAudio
+- Compatibility runtimes:
+  - Box86 and Box64
+  - Wine WOW64 and FEX
+  - native Mono/FNA and PortMaster-derived ARM ports where available
+- Steam ARM64 milestone:
+  - Valve native `publicbeta` Linux ARM64 client
+  - Valve ARM64 Steam runtime
+  - Proton 11.0 (ARM64) plus Steam Linux Runtime 4.0 - Arm64
+  - first verified Windows/Proton title: Moonlighter with WineD3D
 
 ## Tested games
 
@@ -92,6 +106,162 @@ Game-specific notes:
 - [World of Horror](docs/games/world-of-horror.md) documents the GOG 1.01
   extraction, Wine/FEX launcher, V3D shader failure, and patched DXVK 1.10.3
   build.
+
+## Steam ARM64 beta on Debian/uConsole
+
+The normal Debian `steam` package is an x86 client and is not the client tested
+here. The working setup uses Valve's experimental native ARM64 public beta,
+Valve's ARM64 Steam runtime and Proton 11.0 (ARM64). This was tested on an
+ARM64 ClockworkPi uConsole with Debian, Hyprland/XWayland and Mesa V3D.
+
+This is still beta software. Valve publishes the components, but does not
+currently provide a supported Debian/uConsole installer.
+
+### Upstream sources
+
+- Valve ARM64 public beta manifest:
+  `https://client-update.fastly.steamstatic.com/steam_client_publicbeta_linuxarm64`
+- Proton 11.0 (ARM64), Steam AppID `4628740`:
+  `https://store.steampowered.com/app/4628740/Proton_110_ARM64/`
+- Armada bootstrap used as the open-source reference:
+  `https://github.com/armada-os/armada/blob/main/build_files/generate-steam-bootstrap.sh`
+- Armada ARM launcher used as the open-source reference:
+  `https://github.com/armada-os/armada/blob/main/system_files/usr/libexec/armada/launch-steam`
+- Community discovery thread:
+  `https://interfacinglinux.com/community/sbcsoftware/native-steam-client-for-arm-linux/paged/2/`
+
+Armada itself is a complete image for other handhelds. Do not flash the Armada
+operating-system image onto a uConsole; only its public bootstrap and launcher
+logic were adapted here.
+
+### Protect an existing Steam installation
+
+The ARM bootstrap uses Steam's normal user path:
+
+```text
+~/.local/share/Steam
+```
+
+Back up an existing regular x86 Steam tree before installing. The included
+installer refuses to overwrite a non-empty Steam tree which does not already
+contain the ARM64 client.
+
+Do not delete these directories after the ARM client updates:
+
+```text
+ubuntu12_32  ubuntu12_64  steamrt32  steamrt64  linux32  linux64
+```
+
+Despite their names, the ARM64 beta verifies them as client support files.
+Deleting them causes Steam to download them again and can create an update
+loop.
+
+### Bootstrap the native client
+
+Install the small set of Debian tools used by the bootstrap:
+
+```sh
+sudo apt update
+sudo apt install ca-certificates curl file python3 unzip xz-utils
+```
+
+Clone this repository and run the installer as the normal desktop user, not as
+root:
+
+```sh
+git clone https://github.com/AleReb/uconsole-game-compat.git
+cd uconsole-game-compat
+./scripts/steam-arm64/install.sh
+```
+
+The script performs the steps that were needed on the tested uConsole:
+
+1. Require an actual `aarch64` host.
+2. Download Valve's current `publicbeta` Linux ARM64 manifest.
+3. Extract the ARM64 updater seed named by that manifest.
+4. Download and install Valve's current public-beta `steamrt3c` ARM64 runtime.
+5. Link the runtime `libibus` shim needed by the client.
+6. Install `~/.local/bin/steam-arm64` and a **Steam ARM64 (Beta)** desktop entry.
+7. Start Valve's updater so it can verify and complete the client interactively.
+
+The first start can show a black update window for several minutes. Do not kill
+it while the package directory or bootstrap log is changing:
+
+```sh
+pgrep -af 'steam|steamwebhelper'
+du -sh ~/.local/share/Steam/package
+tail -n 40 ~/.local/share/Steam/logs/bootstrap_log.txt
+```
+
+Verify that the result is native ARM64 rather than an emulated x86 client:
+
+```sh
+file ~/.local/share/Steam/steamrtarm64/steam
+```
+
+The result must include `ARM aarch64`.
+
+### Install and register ARM Proton
+
+After the client finishes updating and the account is logged in, install both
+ARM compatibility components:
+
+```sh
+xdg-open steam://install/4628740
+xdg-open steam://install/4185400
+```
+
+- AppID `4628740` is **Proton 11.0 (ARM64)**.
+- AppID `4185400` is **Steam Linux Runtime 4.0 - Arm64**.
+
+The client did not automatically expose the installed ARM Proton correctly on
+the tested system. The included `steam-arm64` launcher therefore performs two
+additional steps every time Steam starts:
+
+1. It creates a `compatibilitytools.d/proton-11-arm64/compatibilitytool.vdf`
+   registration pointing to the installed Proton directory.
+2. It removes the unresolved `require_tool_appid 4185400` line from Proton's
+   `toolmanifest.vdf`. Steam may restore that line during a Proton update, so
+   applying the workaround only once is insufficient.
+
+The launcher also selects XWayland with `SDL_VIDEODRIVER=x11`, adds the ARM64
+runtime libraries to the environment and starts the client with
+`-no-cef-sandbox`, which was required for the tested Hyprland session.
+
+Confirm that both components finished installing:
+
+```sh
+test -f ~/.local/share/Steam/steamapps/appmanifest_4628740.acf
+test -f ~/.local/share/Steam/steamapps/appmanifest_4185400.acf
+```
+
+Restart Steam. For each Windows game, open **Properties > Compatibility**,
+enable the forced compatibility tool and select **Proton 11.0 (ARM64)**.
+
+### First verified Steam game: Moonlighter
+
+Moonlighter AppID `606150` repeatedly crashed in `dxgi.dll` after roughly 20 to
+25 seconds with Proton's default DXVK path. The working profile replaces DXVK
+with WineD3D and constrains the Unity player to a V3D-compatible OpenGL window.
+
+Paste this as one line under **Moonlighter > Properties > General > Launch
+Options**:
+
+```text
+PROTON_USE_WINED3D=1 SDL_VIDEODRIVER=x11 SDL_AUDIODRIVER=pulse MESA_GL_VERSION_OVERRIDE=3.3 MESA_GLSL_VERSION_OVERRIDE=330 %command% -force-glcore33 -force-clamped -screen-fullscreen 0 -screen-width 960 -screen-height 540
+```
+
+The game rendered and remained stable beyond the previous crash point from both
+the internal test copy and the normal USB-backed Steam library. The storage
+location is not part of the compatibility recipe.
+
+Task Bar Hero AppID `3678970` is not a working example. Its tested build fails
+graphics initialization under Proton ARM64 and should not be updated or
+recommended without a new explicit test.
+
+The complete installation, update and recovery notes remain in the
+[Steam ARM64 guide](docs/steam-arm64.md), while the game-specific verification
+is in [Moonlighter](docs/games/moonlighter.md).
 
 ## TMNT: Shredder's Revenge ARM64 port
 
