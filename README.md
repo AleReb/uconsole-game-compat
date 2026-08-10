@@ -46,6 +46,7 @@ keys, cracks, or DRM bypasses.
 | Milk outside a bag of milk outside a bag of milk | Native ARM64 Ren'Py | Opens |
 | Mother Russia Bleeds | Box64/Unity | Opens |
 | Momodora: Reverie Under the Moonlight | Box86/GameMaker | Works with bundled i386 runtime |
+| Moonlighter | Steam ARM64/Proton 11 ARM64 + WineD3D | Works; default DXGI path crashes, use the documented launch options |
 | Phoenotopia Awakening | Box64/FEX/Unity | Not working: bundled Mono aborts before graphics |
 | Portal 2 | Box86/Source Engine | Works; use 800x600 for initial testing |
 | Pyre | Box64/MonoGame | Works with V3D; local ALSA default redirected to PulseAudio |
@@ -60,11 +61,16 @@ keys, cracks, or DRM bypasses.
 | Vambrace: Cold Soul | Box64/Unity | Works; installation may appear stuck near 97% while writing large resource files, so let it finish |
 | Vampire Survivors | Box64/Unity | Opens; gameplay verification still limited |
 | VirtuaVerse | Box64/Unity | Launches and loads scenes; first visual gameplay check still pending |
+| World of Horror | Wine/FEX + patched DXVK 1.10.3 | Works; custom V3D feature gating fixes `shd_pal_swapper` |
 | Xenon Valkyrie | Native ARMHF PortMaster/gmloader | Works |
 
 See [the compatibility matrix](docs/compatibility.md) for the applied runtime
 flags and [the launcher recipes](docs/games/launcher-recipes.md) for reusable
 patterns.
+
+For the experimental native client, start with the reproducible
+[Steam ARM64 installation guide](docs/steam-arm64.md). It includes Valve and
+upstream links, installation, ARM Proton setup, update checks and recovery.
 
 Copyable launchers are available in [scripts/launchers](scripts/launchers).
 Each file is meant to be dropped into the matching game installation directory,
@@ -81,6 +87,11 @@ Game-specific notes:
   texture conversion experiments.
 - [Phoenotopia Awakening](docs/games/phoenotopia-awakening.md) records failed
   runtime experiments to avoid repeating them.
+- [Moonlighter](docs/games/moonlighter.md) documents the working Steam ARM64,
+  Proton 11 ARM64 and WineD3D profile.
+- [World of Horror](docs/games/world-of-horror.md) documents the GOG 1.01
+  extraction, Wine/FEX launcher, V3D shader failure, and patched DXVK 1.10.3
+  build.
 
 ## TMNT: Shredder's Revenge ARM64 port
 

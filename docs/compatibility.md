@@ -27,6 +27,7 @@ Status reflects the local ARM64/uConsole tests, not general Linux support.
 | Milk outside a bag... | Native ARM64 Ren'Py | Added ARM64 Ren'Py runtime/runner selection | Opens |
 | Mother Russia Bleeds | Box64/Unity | `-force-opengl`, GL 3.3, PulseAudio, 960x540 | Opens |
 | Momodora: Reverie Under the Moonlight | Box86/GameMaker | Bundled Steam i386 runtime, X11/PulseAudio | Works |
+| Moonlighter | Steam ARM64 + Proton 11.0 (ARM64) | `PROTON_USE_WINED3D=1`, X11/PulseAudio, GL 3.3, windowed 960x540 | Works; rendered for more than two minutes without another DXGI crash |
 | Phoenotopia Awakening | Box64/Unity | OpenGL and conservative/interpreter Box64 tests; Galaxy plugins isolated | Broken: SIGSEGV in Mono before graphics |
 | Portal 2 | Box86/Source Engine | Bundled `libstdc++.so.6` renamed, GL 3.3 override, X11/PulseAudio, `-game portal2`, 800x600 test resolution | Works |
 | Pyre | Box64/MonoGame | Bundled x86_64 libraries, OpenGL 4.5 compatibility override, local ALSA-to-Pulse configuration | Works |
@@ -41,12 +42,14 @@ Status reflects the local ARM64/uConsole tests, not general Linux support.
 | Vambrace: Cold Soul | Box64/Unity | GL 3.3, X11/PulseAudio, `-force-glcore33`, windowed 960x540 | Works; installer can appear stuck near 97% |
 | Vampire Survivors | Box64/Unity | GL 3.3, X11/PulseAudio, `-force-glcore33`, windowed 960x540 | Opens; gameplay verification still limited |
 | VirtuaVerse | Box64/Unity | GL 3.3, X11/PulseAudio wrapper | Launches and loads scenes; first visual gameplay check still pending |
+| World of Horror | Wine WOW64/FEX + DXVK 1.10.3 | GOG installer extracted with `innoextract`; locally rebuilt DXVK relaxes unused V3D feature requirements | Works; main menu rendered at 1280x720 without `shd_pal_swapper` failure |
 | Xenon Valkyrie | PortMaster/gmloader ARMHF | Converted `data.win` to `game.droid`, embedded music in APK, X11/PulseAudio launcher | Works |
 
 ## Removed or unsupported experiments
 
 - 20 Minutes Till Dawn: incompatible build was removed with installation files.
 - Phoenotopia Awakening remains installed for diagnostics but is not playable under the tested Box64 version.
+- Task Bar Hero (Steam AppID 3678970): the tested build fails graphics initialization under Proton ARM64 and is intentionally not in the working list. Do not recommend or update it without a new explicit test.
 
 ## Common patterns
 
