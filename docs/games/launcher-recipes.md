@@ -205,6 +205,20 @@ failed because the packaged bytecode targets the original engine version.
 SDL_AUDIODRIVER=pulse AUDIODEV=pulse box86 "./This War of Mine"
 ```
 
+## Streets of Rage 4
+
+```sh
+SDL_VIDEODRIVER=x11 SDL_AUDIODRIVER=pulse \
+PULSE_SERVER="unix:${XDG_RUNTIME_DIR}/pulse/native" \
+box64 ./SOR4
+```
+
+Run this from the GOG Linux build's `game` directory. Gameplay was verified on
+the uConsole. Music briefly stuttered during one stage while the USB-backed
+`/home` filesystem was under heavy I/O pressure; this has not been reproduced
+in an isolated audio test, so the USB device remains a hypothesis rather than
+a confirmed game or launcher defect.
+
 ## ULTRAKILL
 
 ```sh

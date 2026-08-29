@@ -67,6 +67,7 @@ keys, cracks, or DRM bypasses.
 | Risk of Rain (2013) | Native ARMHF PortMaster/gmloadernext | Works |
 | Resolutiion | Box64/Godot 3.1.2 | Gameplay tested; works with V3D and OpenGL 3.3 |
 | Stardew Valley | Native Linux ARM build | Works |
+| Streets of Rage 4 | Box64/FNA | Works; one stage-music interruption was observed during heavy USB I/O |
 | TMNT: Shredder's Revenge | Native ARM64 Mono/FNA PortMaster adaptation | Works; controller mapping pending |
 | This War of Mine | Box86 | Opens |
 | ULTRAKILL | Box64/Unity | Opens; controller detected after delayed first render |
@@ -103,6 +104,8 @@ Game-specific notes:
   runtime experiments to avoid repeating them.
 - [Moonlighter](docs/games/moonlighter.md) documents the working Steam ARM64,
   Proton 11 ARM64 and WineD3D profile.
+- [Streets of Rage 4](docs/games/streets-of-rage-4.md) documents the working
+  GOG Linux x86_64/FNA build and the unconfirmed USB-I/O audio caveat.
 - [World of Horror](docs/games/world-of-horror.md) documents the GOG 1.01
   extraction, Wine/FEX launcher, V3D shader failure, and patched DXVK 1.10.3
   build.

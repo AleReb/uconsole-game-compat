@@ -34,6 +34,7 @@ Status reflects the local ARM64/uConsole tests, not general Linux support.
 | Risk of Rain (2013) | PortMaster/gmloadernext ARMHF | Verified `data.win`, xdelta conversion and audio repack | Works |
 | Resolutiion | Box64/Godot 3.1.2 | Original x86-64 runtime, V3D/OpenGL 3.3, X11/PulseAudio | Gameplay tested; works |
 | Stardew Valley | Native Linux ARM-compatible build | Installed GOG shell installer directly | Works |
+| Streets of Rage 4 | Box64/FNA | GOG Linux x86_64 build, X11/PulseAudio launcher | Gameplay tested; works. One stage-music interruption occurred during heavy USB I/O; causality is unconfirmed |
 | TMNT: Shredder's Revenge | Native ARM64 Mono/FNA (PortMaster) | Historical 2024 patches for game 1.0.311, AOT and ASTC conversion | Works; controller mapping pending |
 | This War of Mine | Box86 | PulseAudio launcher | Opens |
 | ULTRAKILL | Box64/Unity | GL 3.3, X11/PulseAudio, `-force-glcore33`, windowed 960x540 | Opens; controller detected after delayed first render |
